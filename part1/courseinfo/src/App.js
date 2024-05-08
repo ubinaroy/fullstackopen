@@ -1,102 +1,65 @@
-const course = 'Half Stack application development'
-const part1 = 'Fundamentals of React'
-const exercises1 = 10
-const part2 = 'Using props to pass data'
-const exercises2 = 7
-const part3 = 'State of a component'
-const exercises3 = 14
-
 const Header = (prop) => {
   return (
-  <>
-    <h1>
-      {prop.course}
-    </h1>
-  </>    
-  )
-}
-
-const Part = (prop) => {
-  return (
     <>
-      <p>
-        {prop.part} {prop.times}
-      </p>
+      <h1>
+        {prop.course}
+      </h1>
     </>
   )
 }
 
 const Content = (prop) => {
+  var parts = prop.parts
+  parts = parts.map(
+    value => /*'<p>' + */ value['name'] + ' ' + value['exercises'] //+ '</p>'
+  )
+  console.log(parts)
+
   return (
     <>
-      <Part part = {part1.toString()} times = {exercises1.toString()} />
-      <Part part = {part2.toString()} times = {exercises2.toString()} />
-      <Part part = {part3.toString()} times = {exercises3.toString()} />
+      <p>{parts[0]}</p>
+      <p>{parts[1]}</p>
+      <p>{parts[2]}</p>
     </>
   )
 }
 
 const Total = (prop) => {
+  const times = prop.parts.map(value => value['exercises'])
+  var sum = 0;
+  times.forEach(value => {
+    sum += value
+  });
+
   return (
-    <>
-      <p>
-        Number of exercises {exercises1 + exercises2 + exercises3}
-      </p>
-    </>
+    <p>
+      Number of exercises {sum}
+    </p>
   )
 }
 
-function foo() {
-  let t = [1, 2, 3]
-  t.push(4)
-  const t1 = t.concat(5)
-
-  const [first, second, ...rest] = t
-  console.log(first, second)
-  console.log(rest)
-
-  const mp = t1.map(value => value * 2)
-  console.log(mp)
-
-  var mp1 = t1.map(value => '<li>' + value + '</li>')
-  console.log(mp1)
-
-  // t1.forEach(value =>{
-  //   console.log(value)
-  // })
-  const obj1 = {
-    name: 'Roy Chen',
-    age: 20,
-    education: 'ZJU',
-  }
-
-  console.log(obj1.name)
-  const College = 'education'
-  console.log(obj1[College])
-  obj1.addr = 'Toyko'
-
-  const sum = (arg1, arg2) => {
-    return arg1 + arg2
-  }
-
-  const square = p => p * p
-
-  const arr = [1, 2, 3]
-  const mp3 = arr.map(p => p * p)
-
-  console.log(mp3)
-}
-
-
-
 const App = () => {
-  console.log("Hello!")
-  foo()
+  const course = 'Half Stack application development'
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ]
+
   return (
     <div>
-      <Header course = {course} />
-      <Content />
-      <Total />
+      <Header course={course} />
+      <Content parts={parts} />
+      <Total parts={parts} />
     </div>
   )
 }
